@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Call Form</title>
+</head>
+<body>
+
+    <h1>API Call Form</h1>
+
+    <form id="apiForm" id="page-singup">
+        <label for="profit">Profit Percentage:</label>
+        <input type="text" id="profit" required><br>
+
+        <button type="button" onclick="callAPI()">Submit</button>
+    </form>
+
+    <script>
+        function callAPI() {
+            // Get values from the form
+            const profit = document.getElementById("profit").value;
+
+            // Assuming your API endpoint is 'https://example.com/api'
+            const apiUrl = 'http://localhost:8004/api/update-admin-settings';
+
+            // Construct the API request
+            const apiRequest = {
+                method: 'PUT', // or 'GET', 'PUT', etc.
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `profit=${encodeURIComponent(profit)}`,
+
+            };
+
+            // Make the API call
+            fetch(apiUrl, apiRequest)
+                .then(response => response.json())
+                .then(data => {
+                    console.log('API Response:', data);
+                    // Handle the API response here
+                })
+                .catch(error => {
+                    console.error('API Error:', error);
+                    // Handle errors here
+                });
+        }
+    </script>
+
+</body>
+</html>
